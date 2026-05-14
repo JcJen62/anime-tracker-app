@@ -2,10 +2,17 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 
+export type WatchlistStatus =
+  | "watching"
+  | "completed"
+  | "plan_to_watch"
+  | "on_hold"
+  | "dropped"
+
 export interface WatchlistEntry {
   id: string
   animeId: number
-  status: string
+  status: WatchlistStatus
   rating: number | null
   episodesWatched: number
   updatedAt: string
@@ -21,7 +28,7 @@ export interface WatchlistEntry {
 
 interface UpdatePayload {
   animeId: number
-  status: string
+  status: WatchlistStatus
   rating: number | null
   episodesWatched: number
 }

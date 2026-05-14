@@ -7,9 +7,9 @@ import Modal from "@/components/Modal"
 import RatingPicker from "@/components/RatingPicker"
 import StatusBadge from "@/components/StatusBadge"
 import { useToast } from "@/lib/toast"
-import { useUpdateEntry, useRemoveEntry, type WatchlistEntry } from "./useWatchlist"
+import { useUpdateEntry, useRemoveEntry, type WatchlistEntry, type WatchlistStatus } from "./useWatchlist"
 
-const STATUSES = [
+const STATUSES: { value: WatchlistStatus; label: string }[] = [
   { value: "watching", label: "Watching" },
   { value: "completed", label: "Completed" },
   { value: "plan_to_watch", label: "Plan to Watch" },
@@ -65,7 +65,6 @@ export default function WatchlistCard({ entry }: { entry: WatchlistEntry }) {
   return (
     <>
       <div className="flex gap-4 rounded-xl bg-zinc-900 p-3 hover:bg-zinc-800/60 transition-colors">
-        {/* Cover */}
         <Link href={`/anime/${anime.id}`} className="shrink-0">
           <div className="relative h-24 w-16 rounded-lg overflow-hidden bg-zinc-800">
             <Image
@@ -78,7 +77,6 @@ export default function WatchlistCard({ entry }: { entry: WatchlistEntry }) {
           </div>
         </Link>
 
-        {/* Info */}
         <div className="flex flex-1 flex-col justify-between min-w-0">
           <div>
             <Link
@@ -120,7 +118,7 @@ export default function WatchlistCard({ entry }: { entry: WatchlistEntry }) {
             </label>
             <select
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              onChange={(e) => setStatus(e.target.value as WatchlistStatus)}
               className="rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               {STATUSES.map((s) => (

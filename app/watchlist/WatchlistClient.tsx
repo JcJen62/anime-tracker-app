@@ -1,12 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import EmptyState from "@/components/EmptyState"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import StatusTabs from "./StatusTabs"
 import WatchlistCard from "./WatchlistCard"
 import { useWatchlistQuery } from "./useWatchlist"
-import Link from "next/link"
 
 export default function WatchlistClient() {
   const searchParams = useSearchParams()
@@ -28,7 +28,7 @@ export default function WatchlistClient() {
         </div>
       )}
 
-      {isError && (
+      {!isLoading && isError && (
         <p className="text-sm text-red-400 text-center py-16">
           Failed to load watchlist. Please refresh.
         </p>

@@ -22,7 +22,7 @@ export default function StatusTabs() {
         <button
           key={tab.value}
           onClick={() =>
-            router.push(tab.value ? `/watchlist?status=${tab.value}` : "/watchlist")
+            router.replace(tab.value ? `/watchlist?status=${tab.value}` : "/watchlist")
           }
           className={[
             "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
