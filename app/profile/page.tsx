@@ -22,13 +22,24 @@ export default async function ProfilePage() {
   const session = await auth()
   if (!session?.user?.id) redirect("/api/auth/signin")
 
-  const entries = await prisma.watchlistEntry.findMany({
-    where: { userId: session.user.id },
-    include: {
-      anime: { select: { id: true, title: true, coverUrl: true, genres: true } },
-    },
-    orderBy: { updatedAt: "desc" },
-  })
+  let entries
+  try {
+    entries = await prisma.watchlistEntry.findMany({
+      where: { userId: session.user.id },
+      include: {
+        anime: { select: { id: true, title: true, coverUrl: true, genres: true } },
+      },
+      orderBy: { updatedAt: "desc" },
+    })
+  } catch {
+    return (
+      <main className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+        <p className="text-sm text-red-400">
+          Failed to load profile data. Please try again later.
+        </p>
+      </main>
+    )
+  }
 
   // Status counts
   const statusCounts = entries.reduce<Record<string, number>>((acc, e) => {
@@ -48,7 +59,7 @@ export default async function ProfilePage() {
   // Genre breakdown — weight each genre by rating (fallback 5 if unrated)
   const genreScores: Record<string, number> = {}
   for (const entry of entries) {
-    const genres = entry.anime.genres as string[]
+    const genres = Array.isArray(entry.anime.genres) ? (entry.anime.genres as string[]) : []
     const weight = entry.rating ?? 5
     for (const g of genres) {
       genreScores[g] = (genreScores[g] ?? 0) + weight
@@ -72,14 +83,14 @@ export default async function ProfilePage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
-      {/* User header */}
       <div className="flex items-center gap-4 mb-10">
         {session.user.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={session.user.image}
             alt="avatar"
-            className="h-16 w-16 rounded-full ring-2 ring-zinc-700"
+            width={64}
+            height={64}
+            className="rounded-full ring-2 ring-zinc-700"
           />
         ) : (
           <div className="h-16 w-16 rounded-full bg-zinc-800 flex items-center justify-center text-2xl font-bold text-zinc-400">
@@ -96,7 +107,6 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
         {stats.map(({ label, value }) => (
           <div key={label} className="rounded-xl bg-zinc-900 p-4 text-center">
@@ -121,7 +131,6 @@ export default async function ProfilePage() {
         />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Genre breakdown */}
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-4">
               Top Genres
@@ -148,7 +157,6 @@ export default async function ProfilePage() {
             )}
           </section>
 
-          {/* Recent activity */}
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-4">
               Recent Activity
