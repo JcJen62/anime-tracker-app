@@ -43,6 +43,15 @@ export async function searchAnime(query: string) {
   return data.map(toRecord)
 }
 
+export async function fetchAnimeByGenre(genreId: number) {
+  const url = `${JIKAN_BASE}/anime?genres=${genreId}&order_by=score&sort=desc&limit=20&sfw=true`
+  const res = await fetch(url, { next: { revalidate: 86400 } })
+  if (!res.ok) return []
+  const { data }: { data: JikanAnimeData[] } = await res.json()
+  await Promise.all(data.map(upsertAnime))
+  return data.map(toRecord)
+}
+
 export async function getAnime(id: number) {
   const cached = await prisma.anime.findUnique({ where: { id } })
   if (cached) return { ...cached, genres: cached.genres as string[] }
