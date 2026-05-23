@@ -6,6 +6,7 @@ import EmptyState from "@/components/EmptyState"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import StatusTabs from "./StatusTabs"
 import WatchlistCard from "./WatchlistCard"
+import ImportPanel from "./ImportPanel"
 import { useWatchlistQuery } from "./useWatchlist"
 
 export default function WatchlistClient() {
@@ -17,6 +18,8 @@ export default function WatchlistClient() {
   return (
     <main className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
       <h1 className="text-2xl font-bold text-white mb-6">My Watchlist</h1>
+
+      <ImportPanel />
 
       <div className="mb-6">
         <StatusTabs />

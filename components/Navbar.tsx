@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { auth, signIn, signOut } from "@/auth"
 
 export default async function Navbar() {
@@ -35,11 +36,12 @@ export default async function Navbar() {
           {session ? (
             <>
               {session.user?.image && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={session.user.image}
                   alt={session.user.name ?? "avatar"}
-                  className="h-7 w-7 rounded-full ring-1 ring-zinc-700"
+                  width={28}
+                  height={28}
+                  className="rounded-full ring-1 ring-zinc-700"
                 />
               )}
               <form
