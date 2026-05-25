@@ -40,6 +40,16 @@ export default async function SignInPage({
   const hasGoogle = !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
   const hasOAuth = hasGitHub || hasGoogle
 
+  async function handleGitHub() {
+    "use server"
+    await signIn("github", { redirectTo })
+  }
+
+  async function handleGoogle() {
+    "use server"
+    await signIn("google", { redirectTo })
+  }
+
   async function handleCredentials(formData: FormData) {
     "use server"
     try {
@@ -78,12 +88,7 @@ export default async function SignInPage({
           {hasOAuth && (
             <div className="flex flex-col gap-2">
               {hasGitHub && (
-                <form
-                  action={async () => {
-                    "use server"
-                    await signIn("github", { redirectTo })
-                  }}
-                >
+                <form action={handleGitHub}>
                   <button
                     type="submit"
                     className="w-full flex items-center justify-center gap-2 rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm font-medium text-zinc-100 hover:bg-zinc-700 transition-colors"
@@ -94,12 +99,7 @@ export default async function SignInPage({
                 </form>
               )}
               {hasGoogle && (
-                <form
-                  action={async () => {
-                    "use server"
-                    await signIn("google", { redirectTo })
-                  }}
-                >
+                <form action={handleGoogle}>
                   <button
                     type="submit"
                     className="w-full flex items-center justify-center gap-2 rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm font-medium text-zinc-100 hover:bg-zinc-700 transition-colors"
