@@ -9,10 +9,14 @@ export default function ImportPanel() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<ImportResult | null>(null)
 
+  const LIMIT = 50
+
   const titles = text
     .split("\n")
     .map((t) => t.trim())
     .filter(Boolean)
+
+  const overLimit = titles.length > LIMIT
 
   async function handleImport() {
     if (!titles.length) return
@@ -68,14 +72,20 @@ export default function ImportPanel() {
             className="w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 resize-none disabled:opacity-50"
           />
 
+          {overLimit && (
+            <p className="text-xs text-yellow-400">
+              Maximum {LIMIT} titles per import. Remove {titles.length - LIMIT} to continue.
+            </p>
+          )}
+
           <div className="flex items-center justify-between">
-            <span className="text-xs text-zinc-500">
-              {titles.length} title{titles.length !== 1 ? "s" : ""}
-              {titles.length > 0 && ` · ~${Math.ceil(titles.length * 0.4)}s`}
+            <span className={`text-xs ${overLimit ? "text-yellow-400" : "text-zinc-500"}`}>
+              {titles.length}{overLimit ? ` / ${LIMIT}` : ` title${titles.length !== 1 ? "s" : ""}`}
+              {!overLimit && titles.length > 0 && ` · ~${Math.ceil(titles.length * 0.4)}s`}
             </span>
             <button
               onClick={handleImport}
-              disabled={loading || titles.length === 0}
+              disabled={loading || titles.length === 0 || overLimit}
               className="rounded-lg bg-indigo-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? "Importing…" : "Import"}

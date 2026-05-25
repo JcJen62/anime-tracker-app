@@ -33,6 +33,16 @@ async function upsertAnime(a: JikanAnimeData) {
   })
 }
 
+export async function searchAnimeFirst(query: string) {
+  const url = `${JIKAN_BASE}/anime?q=${encodeURIComponent(query)}&limit=1&sfw=true`
+  const res = await fetch(url, { next: { revalidate: 3600 } })
+  if (!res.ok) return null
+  const { data }: { data: JikanAnimeData[] } = await res.json()
+  if (!data.length) return null
+  await upsertAnime(data[0])
+  return toRecord(data[0])
+}
+
 export async function searchAnime(query: string) {
   const url = `${JIKAN_BASE}/anime?q=${encodeURIComponent(query)}&limit=20&sfw=true`
   const res = await fetch(url, { next: { revalidate: 3600 } })
