@@ -53,6 +53,15 @@ export async function searchAnime(query: string) {
   return data.map(toRecord)
 }
 
+export async function fetchTopAnime(limit = 12) {
+  const url = `${JIKAN_BASE}/top/anime?filter=bypopularity&limit=${limit}&sfw=true`
+  const res = await fetch(url, { next: { revalidate: 86400 } })
+  if (!res.ok) return []
+  const { data }: { data: JikanAnimeData[] } = await res.json()
+  await Promise.all(data.map(upsertAnime))
+  return data.map(toRecord)
+}
+
 export async function fetchAnimeByGenre(genreId: number) {
   const url = `${JIKAN_BASE}/anime?genres=${genreId}&order_by=score&sort=desc&limit=20&sfw=true`
   const res = await fetch(url, { next: { revalidate: 86400 } })

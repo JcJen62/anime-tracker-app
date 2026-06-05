@@ -6,38 +6,7 @@ import prisma from "@/lib/prisma"
 import { fetchAnimeByGenre } from "@/lib/jikan"
 import AnimeCard from "@/components/AnimeCard"
 import EmptyState from "@/components/EmptyState"
-
-const GENRE_IDS: Record<string, number> = {
-  "Action": 1,
-  "Adventure": 2,
-  "Comedy": 4,
-  "Drama": 8,
-  "Fantasy": 10,
-  "Horror": 14,
-  "Mystery": 7,
-  "Romance": 22,
-  "Sci-Fi": 24,
-  "Slice of Life": 36,
-  "Sports": 30,
-  "Supernatural": 37,
-  "Suspense": 41,
-  "Mecha": 18,
-  "Music": 19,
-  "Historical": 13,
-  "School": 23,
-  "Psychological": 40,
-  "Martial Arts": 17,
-  "Military": 38,
-  "Isekai": 62,
-  "Mahou Shoujo": 16,
-  "Space": 29,
-  "Vampire": 32,
-  "Harem": 35,
-  "Shounen": 27,
-  "Shoujo": 25,
-  "Seinen": 42,
-  "Josei": 43,
-}
+import { GENRE_IDS } from "@/lib/genres"
 
 export default async function RecommendationsPage() {
   const session = await auth()
