@@ -13,12 +13,12 @@ export default async function Home() {
         width={1600}
         height={679}
         priority
-        className="mb-8 w-full max-w-2xl rounded-2xl shadow-lg shadow-black/40"
+        className="mb-10 w-full max-w-4xl rounded-2xl shadow-lg shadow-black/40"
       />
-      <h1 className="text-4xl font-bold tracking-tight text-white mb-4">
+      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
         Anime Tracker
       </h1>
-      <p className="text-zinc-400 text-lg mb-8 max-w-md">
+      <p className="text-zinc-400 text-lg sm:text-xl mb-8 max-w-xl">
         Search for anime, track what you&apos;re watching, and get
         recommendations tailored to your taste.
       </p>

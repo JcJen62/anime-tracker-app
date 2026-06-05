@@ -66,12 +66,12 @@ export default function WatchlistCard({ entry }: { entry: WatchlistEntry }) {
     <>
       <div className="flex gap-4 rounded-xl bg-zinc-900 p-3 hover:bg-zinc-800/60 transition-colors">
         <Link href={`/anime/${anime.id}`} className="shrink-0">
-          <div className="relative h-24 w-16 rounded-lg overflow-hidden bg-zinc-800">
+          <div className="relative h-28 w-20 rounded-lg overflow-hidden bg-zinc-800">
             <Image
               src={anime.coverUrl}
               alt={anime.title}
               fill
-              sizes="64px"
+              sizes="80px"
               className="object-cover"
             />
           </div>
@@ -81,7 +81,7 @@ export default function WatchlistCard({ entry }: { entry: WatchlistEntry }) {
           <div>
             <Link
               href={`/anime/${anime.id}`}
-              className="text-sm font-medium text-zinc-100 hover:text-white line-clamp-2 leading-snug"
+              className="text-base font-medium text-zinc-100 hover:text-white line-clamp-2 leading-snug"
             >
               {anime.title}
             </Link>

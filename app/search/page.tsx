@@ -52,7 +52,7 @@ export default async function SearchPage({
           <p className="text-sm text-zinc-500 mb-4">
             {results.length} results for &quot;{query}&quot;
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
             {results.map((anime) => (
               <AnimeCard
                 key={anime.id}

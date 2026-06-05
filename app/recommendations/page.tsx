@@ -175,7 +175,7 @@ export default async function RecommendationsPage() {
           description="You've already seen everything in your top genres. Try completing more anime!"
         />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5 sm:gap-6">
           {scored.map((anime) => (
             <AnimeCard
               key={anime.id}

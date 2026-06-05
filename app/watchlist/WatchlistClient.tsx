@@ -16,7 +16,7 @@ export default function WatchlistClient() {
   const { data: entries, isLoading, isError } = useWatchlistQuery(status)
 
   return (
-    <main className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+    <main className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
       <h1 className="text-2xl font-bold text-white mb-6">My Watchlist</h1>
 
       <ImportPanel />

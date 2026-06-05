@@ -33,7 +33,7 @@ export default function AnimeCard({
           src={coverUrl}
           alt={title}
           fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1536px) 25vw, 20vw"
           className="object-cover transition-opacity group-hover:opacity-90"
         />
         {score != null && (
@@ -49,7 +49,7 @@ export default function AnimeCard({
       </div>
 
       <div className="flex flex-col gap-1 p-3">
-        <h3 className="text-sm font-medium text-zinc-100 line-clamp-2 leading-snug group-hover:text-white">
+        <h3 className="text-sm sm:text-base font-medium text-zinc-100 line-clamp-2 leading-snug group-hover:text-white">
           {title}
         </h3>
 
