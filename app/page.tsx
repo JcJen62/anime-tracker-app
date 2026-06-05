@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { auth } from "@/auth"
 
 export default async function Home() {
@@ -6,6 +7,14 @@ export default async function Home() {
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center px-6 text-center">
+      <Image
+        src="/images/hero.webp"
+        alt="Anime Tracker"
+        width={1600}
+        height={679}
+        priority
+        className="mb-8 w-full max-w-2xl rounded-2xl shadow-lg shadow-black/40"
+      />
       <h1 className="text-4xl font-bold tracking-tight text-white mb-4">
         Anime Tracker
       </h1>

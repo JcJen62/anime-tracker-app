@@ -9,7 +9,15 @@ export default async function Navbar() {
     <header className="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-sm">
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-6">
-          <Link href="/" className="text-sm font-bold tracking-wide text-white">
+          <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-wide text-white">
+            <Image
+              src="/images/logo.png"
+              alt="AniTrack logo"
+              width={28}
+              height={28}
+              className="rounded-md"
+              priority
+            />
             AniTrack
           </Link>
           <div className="hidden sm:flex items-center gap-4">

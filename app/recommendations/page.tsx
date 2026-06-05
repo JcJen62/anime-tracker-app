@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
@@ -143,12 +144,23 @@ export default async function RecommendationsPage() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-1">For You</h1>
-        <p className="text-sm text-zinc-500">
-          Based on {ratedEntries.length} completed anime · top genres:{" "}
-          {topGenres.map(([g]) => g).join(", ")}
-        </p>
+      <div className="relative mb-8 overflow-hidden rounded-2xl">
+        <Image
+          src="/images/recommendations-banner.webp"
+          alt=""
+          width={1600}
+          height={679}
+          priority
+          className="h-48 w-full object-cover object-top sm:h-72"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 p-6">
+          <h1 className="text-2xl font-bold text-white mb-1">For You</h1>
+          <p className="text-sm text-zinc-300">
+            Based on {ratedEntries.length} completed anime · top genres:{" "}
+            {topGenres.map(([g]) => g).join(", ")}
+          </p>
+        </div>
       </div>
 
       {jikanFailed && (
