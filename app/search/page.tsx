@@ -3,6 +3,7 @@ import { searchAnime, fetchAnimeByGenre, fetchTopAnime } from "@/lib/jikan"
 import { GENRE_IDS, POPULAR_GENRES } from "@/lib/genres"
 import AnimeCard from "@/components/AnimeCard"
 import EmptyState from "@/components/EmptyState"
+import PopularStrip from "@/components/PopularStrip"
 import SearchInput from "./SearchInput"
 
 const GRID_CLASS =
@@ -113,25 +114,13 @@ export default async function SearchPage({
 }
 
 async function PopularSection() {
-  const popular = await fetchTopAnime(12)
+  const popular = await fetchTopAnime(10)
   if (popular.length === 0) return null
 
   return (
     <section>
       <h2 className="text-xl font-bold text-white mb-4">Popular right now</h2>
-      <div className={GRID_CLASS}>
-        {popular.map((anime) => (
-          <AnimeCard
-            key={anime.id}
-            id={anime.id}
-            title={anime.title}
-            coverUrl={anime.coverUrl}
-            score={anime.score}
-            episodeCount={anime.episodeCount}
-            genres={anime.genres}
-          />
-        ))}
-      </div>
+      <PopularStrip anime={popular} />
     </section>
   )
 }
